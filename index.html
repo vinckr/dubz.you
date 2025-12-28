@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My Links</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050816" />
+
+    <style>
+      :root {
+        --bg: #050816;
+        --text-main: #f9fafb;
+        --text-subtle: #9ca3af;
+
+        --border-subtle: rgba(148, 163, 184, 0.4);
+        --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.75);
+
+        --radius-lg: 1.25rem;
+        --radius-full: 999px;
+
+        --accent: #4f46e5;
+        --accent-2: rgba(79, 70, 229, 0.22);
+        --accent-strong: rgba(129, 140, 248, 0.95);
+
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 24px 16px;
+        background: radial-gradient(
+            circle at top left,
+            rgba(79, 70, 229, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(236, 72, 153, 0.14),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(56, 189, 248, 0.18),
+            transparent 55%
+          ),
+          #020617;
+        color: var(--text-main);
+        font-family: var(--font-sans);
+      }
+
+      .card {
+        width: 100%;
+        max-width: 420px;
+        background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.98),
+          rgba(15, 23, 42, 0.92)
+        );
+        border-radius: 1.75rem;
+        padding: 24px 20px 22px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        backdrop-filter: blur(16px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glow {
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(129, 140, 248, 0.25),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 100% 20%,
+            rgba(236, 72, 153, 0.18),
+            transparent 55%
+          );
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .card-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .avatar-border {
+        width: 76px;
+        height: 76px;
+        border-radius: 22px;
+        background: radial-gradient(circle at 20% 0%, #111827, #020617 70%);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+        display: block;
+        z-index: 1;
+      }
+
+      /* Fallback sits underneath the image */
+      .avatar-fallback {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 600;
+        color: #e5e7eb;
+        background: radial-gradient(circle at 30% 0%, #1f2937, #020617 70%);
+        z-index: 0;
+      }
+
+      .name {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .handle {
+        font-size: 0.9rem;
+        color: var(--text-subtle);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .bio {
+        margin-top: 4px;
+        font-size: 0.92rem;
+        color: #d1d5db;
+        line-height: 1.5;
+        max-width: 32rem;
+      }
+
+      /* Full-width link buttons */
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+        margin-bottom: 6px;
+      }
+
+      .link-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: var(--radius-full);
+        border: 1px solid var(--border-subtle);
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(148, 163, 184, 0.16),
+            transparent 50%
+          ),
+          linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+        color: var(--text-main);
+        font-size: 0.95rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.12s ease, box-shadow 0.12s ease,
+          background 0.12s ease, border-color 0.12s ease;
+        box-shadow: 0 12px 25px rgba(15, 23, 42, 0.75);
+      }
+
+      .link-button:hover {
+        transform: translateY(-1px);
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(129, 140, 248, 0.2),
+            transparent 55%
+          ),
+          linear-gradient(135deg, #1f2937, #020617);
+        border-color: rgba(129, 140, 248, 0.9);
+      }
+
+      .link-button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 12px rgba(15, 23, 42, 0.9);
+      }
+
+      .link-button:focus-visible {
+        outline: 2px solid rgba(129, 140, 248, 0.9);
+        outline-offset: 3px;
+      }
+
+      .link-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .link-title {
+        font-size: 0.98rem;
+      }
+      .link-subtitle {
+        font-size: 0.78rem;
+        color: var(--text-subtle);
+        font-weight: 500;
+      }
+
+      .link-right {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        background: radial-gradient(
+          circle at 30% 0%,
+          rgba(148, 163, 184, 0.35),
+          rgba(15, 23, 42, 0.95)
+        );
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      /* Emphasis variants for booking optimization */
+      .link-button.emphasis {
+        border-color: rgba(129, 140, 248, 0.95);
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(129, 140, 248, 0.28),
+            transparent 55%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(79, 70, 229, 0.22),
+            rgba(15, 23, 42, 0.92)
+          );
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.78),
+          0 0 0 1px rgba(129, 140, 248, 0.18) inset;
+      }
+
+      .link-button.emphasis .link-right {
+        border-color: rgba(129, 140, 248, 0.9);
+        background: radial-gradient(
+          circle at 30% 0%,
+          rgba(129, 140, 248, 0.55),
+          rgba(15, 23, 42, 0.95)
+        );
+      }
+
+      .link-button.primary {
+        border-color: rgba(129, 140, 248, 0.98);
+        background: radial-gradient(
+            circle at 20% 0%,
+            rgba(129, 140, 248, 0.38),
+            transparent 55%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(79, 70, 229, 0.3),
+            rgba(15, 23, 42, 0.92)
+          );
+      }
+
+      /* Icon row footer */
+      .socials {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .socials a {
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        background: radial-gradient(
+          circle at 30% 0%,
+          rgba(148, 163, 184, 0.25),
+          rgba(15, 23, 42, 0.95)
+        );
+        color: #e5e7eb;
+        transition: transform 0.12s ease, border-color 0.12s ease,
+          background 0.12s ease;
+      }
+
+      .socials a:hover {
+        transform: translateY(-1px);
+        border-color: rgba(129, 140, 248, 0.9);
+        background: radial-gradient(
+          circle at 30% 0%,
+          rgba(129, 140, 248, 0.35),
+          rgba(15, 23, 42, 0.95)
+        );
+      }
+
+      .socials a:focus-visible {
+        outline: 2px solid rgba(129, 140, 248, 0.9);
+        outline-offset: 3px;
+      }
+
+      .socials svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      /* Force exactly two rows on very small screens (3 icons per row) */
+      @media (max-width: 360px) {
+        .socials {
+          display: grid;
+          grid-template-columns: repeat(3, 44px);
+          justify-content: center;
+          gap: 12px;
+        }
+      }
+
+      .footer-text {
+        margin-top: 12px;
+        text-align: center;
+        font-size: 0.74rem;
+        color: var(--text-subtle);
+      }
+
+      @media (min-width: 640px) {
+        body {
+          padding: 32px 16px;
+        }
+        .card {
+          padding: 26px 24px 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="glow"></div>
+
+      <div class="card-inner">
+        <header class="profile">
+          <div class="avatar-wrapper">
+            <div class="avatar-border">
+              <img src="moi.jpg" alt="Your Name" class="avatar" />
+              <div class="avatar-fallback" aria-hidden="true">VK</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="name">DJ Name</div>
+            <div class="handle">@yourhandle</div>
+          </div>
+
+          <p class="bio">DJ sets, bookings, and links.</p>
+        </header>
+
+        <!-- Booking-optimized primary CTAs -->
+        <main class="links" aria-label="Primary links">
+          <!-- Emphasize Email (fast conversion) -->
+          <a class="link-button primary" href="mailto:you@example.com">
+            <span class="link-label">
+              <span class="link-title">Email for bookings</span>
+              <span class="link-subtitle">you@example.com</span>
+            </span>
+            <span class="link-right">@</span>
+          </a>
+
+          <!-- Emphasize RA (credibility for promoters) -->
+          <a
+            class="link-button emphasis"
+            href="https://ra.co/dj/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="link-label">
+              <span class="link-title">Resident Advisor</span>
+              <span class="link-subtitle"
+                >Profile, listings, and credentials</span
+              >
+            </span>
+            <span class="link-right">RA</span>
+          </a>
+
+          <!-- Instagram as full-width CTA (discovery + proof) -->
+          <a
+            class="link-button"
+            href="https://instagram.com/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="link-label">
+              <span class="link-title">Instagram</span>
+              <span class="link-subtitle"
+                >Clips, updates, and announcements</span
+              >
+            </span>
+            <span class="link-right">IG</span>
+          </a>
+
+          <!-- YouTube as full-width button -->
+          <a
+            class="link-button"
+            href="https://youtube.com/@yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="link-label">
+              <span class="link-title">YouTube</span>
+              <span class="link-subtitle">Full sets and live recordings</span>
+            </span>
+            <span class="link-right">▶</span>
+          </a>
+
+          <!-- Bandcamp as full-width button (optional but requested) -->
+          <a
+            class="link-button"
+            href="https://yourname.bandcamp.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="link-label">
+              <span class="link-title">Bandcamp</span>
+              <span class="link-subtitle">Support and archives</span>
+            </span>
+            <span class="link-right">BC</span>
+          </a>
+
+          <!-- Keep SoundCloud as a button too (DJ primary artifact) -->
+          <a
+            class="link-button"
+            href="https://soundcloud.com/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="link-label">
+              <span class="link-title">SoundCloud</span>
+              <span class="link-subtitle">Latest mixes</span>
+            </span>
+            <span class="link-right">SC</span>
+          </a>
+        </main>
+
+        <!-- Icon row: keep Instagram here as well, remove Mixcloud -->
+        <nav class="socials" aria-label="Social links">
+          <!-- Instagram (kept as icon as requested) -->
+          <a
+            href="https://instagram.com/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 3.5a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm5.75-2.25a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5z"
+              />
+            </svg>
+          </a>
+
+          <!-- SoundCloud -->
+          <a
+            href="https://soundcloud.com/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SoundCloud"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M11 9v8h6a3.5 3.5 0 1 0-.6-6.95A4.5 4.5 0 0 0 7 11v6h2V9h2z"
+              />
+            </svg>
+          </a>
+
+          <!-- Resident Advisor -->
+          <a
+            href="https://ra.co/dj/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resident Advisor"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h10l6 8l-6 8H4V4zm2 2v12h7.2L18 12l-4.8-6H6z" />
+            </svg>
+          </a>
+
+          <!-- Bandcamp -->
+          <a
+            href="https://yourname.bandcamp.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bandcamp"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 17l6-10h12l-6 10H3z" />
+            </svg>
+          </a>
+
+          <!-- YouTube -->
+          <a
+            href="https://youtube.com/@yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M23 12s0-4-1-5s-5-1-10-1s-9 0-10 1s-1 5-1 5s0 4 1 5s5 1 10 1s9 0 10-1s1-5 1-5zm-13 3V9l5 3l-5 3z"
+              />
+            </svg>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:you@example.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 6h20v12H2V6zm10 7L4 8v8h16V8l-8 5zm0-2l8-5H4l8 5z" />
+            </svg>
+          </a>
+        </nav>
+
+        <div class="footer-text">something something</div>
+      </div>
+    </div>
+  </body>
+</html>
