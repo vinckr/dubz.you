@@ -56,8 +56,18 @@
           #020617;
         color: var(--text-main);
         font-family: var(--font-sans);
+        overflow-x: hidden; 
       }
 
+      #pet {
+            position: fixed;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 3s ease-in-out;
+            z-index: 9999;
+            user-select: none;
+            pointer-events: auto;
+      }
       .card {
         width: 100%;
         max-width: 420px;
@@ -375,6 +385,9 @@
   </head>
 
   <body>
+
+    <div id="pet">😽</div>
+
     <div class="card">
       <div class="glow"></div>
 
@@ -456,35 +469,7 @@
             </span>
             <span class="link-right">SC</span>
           </a>
-<!--           
-          <a
-            class="link-button"
-            href="https://youtube.com/@dubz.you"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="link-label">
-              <span class="link-title">YouTube</span>
-              <span class="link-subtitle">Full sets and live recordings</span>
-            </span>
-            <span class="link-right">▶</span>
-          </a>
 
-          <a
-            class="link-button"
-            href="https://yourname.bandcamp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="link-label">
-              <span class="link-title">Bandcamp</span>
-              <span class="link-subtitle">Support and archives</span>
-            </span>
-            <span class="link-right">BC</span>
-          </a>
-        </main>
-
- --> 
         <div class="footer-text-big">Also known as Dubzlinger, Turdbaby, and Miskatonic</div>
         <nav class="socials" aria-label="Social links">
           <a
@@ -541,43 +526,6 @@
             </g>
             </svg>
           </a>
-<!-- 
-          <a
-            href="https://ra.co/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Resident Advisor"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 4h10l6 8l-6 8H4V4zm2 2v12h7.2L18 12l-4.8-6H6z" />
-            </svg>
-          </a>
-
-          <a
-            href="https://dubz.bandcamp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Bandcamp"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3 17l6-10h12l-6 10H3z" />
-            </svg>
-          </a>
-
-          <a
-            href="https://youtube.com/@dubz.you"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="YouTube"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M23 12s0-4-1-5s-5-1-10-1s-9 0-10 1s-1 5-1 5s0 4 1 5s5 1 10 1s9 0 10-1s1-5 1-5zm-13 3V9l5 3l-5 3z"
-              />
-            </svg>
-          </a>
-
- -->
 
           <a href="mailto:mail@dubz.you" aria-label="Email">
             <svg>
@@ -589,6 +537,38 @@
         <div class="footer-text">All Rites Reversed Ⓚ 2026 - <a href="https://github.com/vinckr/dubz.you" target="_blank" rel="noopener noreferrer">steal this page</a></div>
       </div>
     </div>
+
+    <script>
+        const pet = document.getElementById('pet');
+        const moveInterval = 3000; 
+
+        function movePet() {
+            // Get viewport size
+            const w = window.innerWidth - 100;
+            const h = window.innerHeight - 100;
+
+            const newX = Math.floor(Math.random() * w);
+            const newY = Math.floor(Math.random() * h);
+
+            // Facing logic
+            const currentX = pet.getBoundingClientRect().left;
+            if (newX < currentX) {
+                pet.style.transform = `scaleX(-1)`; 
+            } else {
+                pet.style.transform = `scaleX(1)`; 
+            }
+
+            pet.style.left = newX + 'px';
+            pet.style.top = newY + 'px';
+        }
+
+        movePet(); 
+        setInterval(movePet, moveInterval); 
+        
+        pet.addEventListener('click', () => {
+            pet.innerText = '😻';
+            setTimeout(() => pet.innerText = '😽', 1000); 
+        });
+    </script>
   </body>
 </html>
-  
